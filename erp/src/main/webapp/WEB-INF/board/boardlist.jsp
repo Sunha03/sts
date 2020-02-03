@@ -14,7 +14,18 @@
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-
+	//javascript에서 java에서 발생한 데이터 사용하기 - EL
+	category = "${category}";		//컨트롤러 요청 후 response될 때, 값을 받아서 셋팅
+	<%--category = "<%= request.getAttribute("category") %>";--%>
+	$(document).ready(function() {
+		//최초 실행인 경우 category 값이 없음
+		if(category=="")
+			category="all";
+		$('#category').val(category).attr("selected", "selected");
+		$("#category").change(function() {
+			location.href="/erp/board/list.do?category=" + encodeURI($(this).val());
+		});
+	});
 </script>
 </head>
 <body>
@@ -61,7 +72,9 @@
 			<option value="title">제목</option>
 			<option value="content">본문</option>
 			<option value="write_date">작성일</option>
-		</select> <input type="text" name="search" /> <input type="submit" value="검색">
+		</select> <input type="text" name="search" />
+		<input type="submit" value="검색">
+		
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="/erp/board/write.do" style="text-align: right;">글쓰기</a></li>
 		</ul>

@@ -14,9 +14,17 @@ public class BoardServiceImpl implements BoardService {
 	BoardDAO dao;
 	
 	@Override
-	public List<BoardVO> boardList() {
+	public List<BoardVO> boardList(String category) {	//게시판 검색
+		List<BoardVO> list = null;
 		
-		return dao.boardList();
+		if(category != null) {
+			if(category.equals("all"))		//전체 검색
+				list = dao.boardList();
+			else							//카테고리 검색
+				list = dao.categorySearch(category);
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -39,8 +47,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<BoardVO> searchList(String tag, String search) {
-		
-		return null;
+		return dao.searchList(tag, search);
 	}
 
 	@Override
