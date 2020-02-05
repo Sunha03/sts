@@ -8,9 +8,6 @@
 		<put-attribute name="content" value="/WEB-INF/include/mainContent.jsp" /> 
 	</definition>
 	
-	<definition name="index" extends="indexTemplate">
-	</definition>	
-	
 	<definition name="mainTemplate" template="/WEB-INF/layout/mainLayout.jsp">
 		<put-attribute name="top" value="/WEB-INF/include/top.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/menu/pub_menu.jsp" />
@@ -24,6 +21,17 @@
 	<definition name="menu/board" extends="mainTemplate">
 		<put-attribute name="menu" value="/WEB-INF/menu/board_menu.jsp" />
 		<put-attribute name="content" value="/WEB-INF/board/boardlist.jsp" />
+	</definition>
+	
+	<!-- 뷰 -->
+	<definition name="index" extends="indexTemplate"></definition>	
+	<definition name="login/ok" extends="mainTemplate">
+		<put-attribute name="menu" value="/WEB-INF/menu/insa_menu.jsp" />
+		<put-attribute name="content" value="/WEB-INF/emp/mypage.jsp" />
+	</definition>
+	<definition name="emp/insert" extends="mainTemplate">
+		<put-attribute name="menu" value="/WEB-INF/menu/insa_menu.jsp" />
+		<put-attribute name="content" value="/WEB-INF/emp/register.jsp" />
 	</definition>
 	
 </tiles-definitions>

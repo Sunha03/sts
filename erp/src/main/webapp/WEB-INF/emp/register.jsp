@@ -8,29 +8,39 @@
 <meta charset="UTF-8">
 	<title>Insert title here</title>
 	<script type="text/javascript">
-	
+		$(document).ready(function() {
+			$("#id").on("keyup", function() {
+				//동기 방식으로 요청
+				//location.href = "/erp/emp/idcheck.do?id=" + $("#id").val();
+				
+				//jQuery에서 Ajax로 요청 (get 방식)
+				//url : 요청 path, data : 파라미터(json 형식 : {"name":"value";"name":"value",...}),
+				//success : Ajax 요청 > 데이터 받아오기 성공시 실행할 처리할 내용을 함수로 표현
+				//dataType : ajax 요청 후 응답 받을 데이터의 형식
+				$.get("/erp/emp/idcheck.do", {"id":$("#id").val()}, function(data) {
+					$("#checkVal").text(data);		//ajax로 요청 > 응답 데이터를 <span> 태그 내부에 출력
+				}, "text")
+			});
+		});
 	</script>
  </head>
 	
 <body>
+	<%= request.getAttribute("info") %>
 	<div class="container-fluid">
 			
-			<form class="form-horizontal" 
-				action="" 
-				method="POST" enctype="multipart/form-data"
-				name="myform">
+			<form class="form-horizontal" action="" method="POST" 
+				enctype="multipart/form-data" name="myform">
 				<fieldset>
 					<div id="legend">
 						
 					</div>
 					<div class="form-group" style="padding: 40px">
 						<p class="centered">
-							<img src="/erp/images/myphoto.jpg" 
-							 id="userImage" style="width: 100px">
+							<img src="/erp/images/myphoto.jpg" id="userImage" style="width: 100px">
 						</p>
 						<div>
-							<input type="file" name="userImage"
-								onchange="">
+							<input type="file" name="userImage" onchange="">
 						</div>
 					</div>
 					

@@ -19,8 +19,7 @@ public class EmpDAOImpl implements EmpDAO {
 
 	@Override
 	public int insert(MemberVO user) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("multi.erp.emp.insert", user);
 	}
 
 	@Override
@@ -58,11 +57,15 @@ public class EmpDAOImpl implements EmpDAO {
 		
 		return user;
 	}
-
+	
 	@Override
 	public boolean idCheck(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean result = false;
+		MemberVO user=  sqlSession.selectOne("multi.erp.emp.idcheck",id);
+		if(user!=null) {
+			result = true;
+		}
+		return result;
 	}
 
 	@Override

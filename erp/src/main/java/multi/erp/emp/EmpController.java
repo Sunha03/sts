@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 //emp 테이블에서 작업하는 모든 내용에 대한 컨트롤러
@@ -45,7 +46,7 @@ public class EmpController {
 			
 			//2. 세션에 데이터 공유
 			ses.setAttribute("user", user);
-			viewName = "index";
+			viewName = "login/ok";
 		} else {					//로그인 실패
 			viewName = "login";
 		}
@@ -65,5 +66,46 @@ public class EmpController {
 		}
 		
 		return "redirect:/index.do";
+	}
+	
+	@RequestMapping("/emp/insertView.do")
+	public String insertView() {
+		return "emp/insert";
+	}
+	
+	/*@RequestMapping("/emp/idcheck.do")		//전체 페이지 다시 불러오기(동기 요청)
+	public ModelAndView idCheck(String id) {
+		ModelAndView mav = new ModelAndView();
+		boolean state = service.idCheck(id);
+		String result = "";
+		
+		if(state) {		//이미 사용자가 존재 > DB에 해당 아이디가 있음
+			result = "불사용가능한 아이디";
+		} else {		//새로운 아이디
+			result = "사용가능한 아이디";
+		}
+		
+		mav.addObject("info", result);
+		mav.setViewName("emp/insert");
+		
+		return mav;
+	}*/
+	
+	//ajax 요청(비동기 통신)
+	//produces 속성 : ajax 요청 후 클라이언트로 전송할 데이터의 타입을 정의
+	//				 application/text는 Ajax 요청 후 클라이언트로 보내는 응답 메세지의 타입 => text
+	@RequestMapping(value="/emp/idcheck.do", method=RequestMethod.GET, 
+						produces="application/text;charset=utf-8")
+	public @ResponseBody String idCheck(String id) {
+		boolean state = service.idCheck(id);
+		String result = "";
+		
+		if(state) {		//이미 사용자가 존재 > DB에 해당 아이디가 있음
+			result = "불사용가능한 아이디";
+		} else {		//새로운 아이디
+			result = "사용가능한 아이디";
+		}
+		
+		return result;
 	}
 }

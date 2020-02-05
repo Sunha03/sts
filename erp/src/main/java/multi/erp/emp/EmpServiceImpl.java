@@ -20,15 +20,14 @@ public class EmpServiceImpl implements EmpService {
 	}
 
 	@Override
-	public int insert(MemberVO user, MultipartFile file, String realpath, String filename) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insert(MemberVO user,MultipartFile file,String realpath,String filename) {
+		return dao.insert(user);
 	}
 
 	@Override
 	public boolean idCheck(String id) {
 		// TODO Auto-generated method stub
-		return false;
+		return dao.idCheck(id);
 	}
 
 	@Override
