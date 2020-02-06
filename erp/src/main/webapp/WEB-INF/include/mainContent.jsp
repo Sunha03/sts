@@ -22,6 +22,48 @@
 
 </style>
 <title>Insert title here</title>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//id 속성이 boardCategory로 정의된 엘리먼트의 모든 하위 엘리먼트인 li에 동일한 작업을 처리
+		$("#boardCategory>li").each(function() {
+			$(this).on("click", function() {
+				category = $(this).text();
+				/*
+				ajax 메소드 > ajax 요청
+				- url : ajax 통신을 위해 요청하는 path
+				- type : 요청방식(get/post)
+				- data : 요청할 때 컨트롤러로 넘길 데이터
+				- success : 요청 성공 후 처리한 데이터를 넘겨 받은 후 어떻게 처리할 것인지(함수명/익명함수로)
+				*/
+				$("#boardCategory>li").removeAttr("class");
+				$(this).attr("class", "active");
+				$.ajax({
+					url: "/erp/board/ajax_boardlist.do",
+					type: "get",
+					data: {
+						"category": category
+					},
+					success:function(data) {
+						mydata = "";
+						//ajax 통신으로 받은 data(json 객체)에서 값을 꺼내고 출력
+						for(i=0;i<data.length;i++) {
+							mydata = mydata + 
+									"<tr><td class='boardContent'>" + data[i].title 
+										+ "</td>"
+										+ "<td class='boardDate'>" + data[i].write_date
+										+ "</td>"
+										+ "</tr>"
+						}
+						
+						$("#mydatalist").empty();
+						$("#mydatalist").append(mydata);
+					}
+				});
+			})
+		});
+	});
+</script>
+
 </head>
 <body>
 	<div class="container">
@@ -71,15 +113,15 @@
 			<div class="col-sm-5">
 				<div class="panel panel-primary"
 					style="border-color: #edeef1; height: 300px; width: 450px">
-					<div class="panel-footer">사내소식</div>
+					<div class="panel-footer">커뮤니티</div>
 					<div class="panel-body">
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#">최근게시판</a></li>
-							<li><a href="#">업무공지</a></li>
+						<ul class="nav nav-tabs" id="boardCategory">
+							<li class="active"><a href="#">게시판</a></li>
+							<li><a href="#">사내소식</a></li>
 							<li><a href="#">경조사</a></li>
 						</ul>
 						<div id="boardMain" style="padding-top: 20px; padding-left: 10px">
-							<table>
+							<table id="mydatalist">
 								<tr>
 									<td class="boardContent" style="">mini프로젝트 개최</td>
 									<td class="boardDate" style="">2020.02.10</td>

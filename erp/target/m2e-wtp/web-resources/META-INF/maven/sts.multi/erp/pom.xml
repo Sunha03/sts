@@ -148,7 +148,23 @@
 		    <artifactId>mybatis-spring</artifactId>
 		    <version>1.2.3</version>
 		</dependency>
-				
+			
+		<!-- json 라이브러리(기본 라이브러리 : json parser, json marker) -->	
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.4.6</version>
+		</dependency>
+		
+		<!-- java 객체를 자동으로 json으로 변환 -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.4.6</version>
+		</dependency>
+		
 		
 	</dependencies>
     <build>
