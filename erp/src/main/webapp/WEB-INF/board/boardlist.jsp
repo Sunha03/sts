@@ -16,7 +16,7 @@
 <script type="text/javascript">
 	//javascript에서 java에서 발생한 데이터 사용하기 - EL
 	category = "${category}";		//컨트롤러 요청 후 response될 때, 값을 받아서 셋팅
-	<%--category = "<%= request.getAttribute("category") %>";--%>
+	<%--cat8	QAv b kml.  0.022159/egory = "<%= request.getAttribute("category") %>";--%>
 	$(document).ready(function() {
 		//최초 실행인 경우 category 값이 없음
 		if(category=="")
